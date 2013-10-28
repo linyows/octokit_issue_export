@@ -1,5 +1,8 @@
-OctokitIssueExport
-==================
+Octokit IssueExport
+===================
+
+[![Gem Version](https://badge.fury.io/rb/octokit_issue_export.png)][gem]
+[gem]: https://rubygems.org/gems/octokit_issue_export
 
 Export issues from projects on GitHub
 
@@ -21,15 +24,31 @@ Or install it yourself as:
 Usage
 -----
 
+```ruby
+[1] 2.0.0(main)> require 'octokit_issue_export'
+=> true
+[2] 2.0.0(main)> Octokit.export_org_issues('rails')
+[rails/rails]
+- #12673, state:   open, comments:   0, title: "Fix Timed thread-safety. Fixes #12069"
+- #12672, state:   open, comments:   0, title: "unescapeHTML crashes with certain *.html_safe inputs"
+- #12671, state:   open, comments:   4, title: "Rails 4.0.1.rc1:  undefined method `set_name_cache' for #<Module:...> (NoMethodError)"
+- #12670, state:   open, comments:   1, title: "Optimize none? and one? relation query methods to use LIMIT 1 and COUNT."
+- #12667, state:   open, comments:   1, title: "Fix Guide HTML validation"
+...
+# => ./rails/rails/12673.json
+# => ./rails/rails/12672.json
+# ...
 ```
-# Provide authentication credentials
+
+when includes private repository
+
+```ruby
 Octokit.configure do |c|
   c.login = 'defunkt'
   c.password = 'c0d3b4ssssss!'
 end
 
-# Fetch the current user
-Octokit.export_org_issues('rails')
+Octokit.export_org_issues('github')
 ```
 
 Contributing
