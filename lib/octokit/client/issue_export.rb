@@ -14,10 +14,9 @@ module Octokit
       alias :export_org_issues :export_organization_issues
 
       def export_issues_by_repository(repo)
-        self._dir_for_export = File.join(%w(.) + repo.full_name.split('/'))
-
         puts "[#{repo.full_name}]"
         if repo(repo.full_name).has_issues?
+          self._dir_for_export = File.join(%w(.) + repo.full_name.split('/'))
           _export_issues_by_repository(repo.full_name)
         else
           puts "- project without issues"
