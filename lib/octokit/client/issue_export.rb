@@ -4,10 +4,12 @@ module Octokit
       def export_issues(username = nil)
         username = login if username.nil?
         repos(username).each { |repo| export_issues_by_repo(repo) }
+        Time.now
       end
 
       def export_organization_issues(organization)
         org_repos(organization).each { |repo| export_issues_by_repo(repo) }
+        Time.now
       end
       alias :export_org_issues :export_organization_issues
 
