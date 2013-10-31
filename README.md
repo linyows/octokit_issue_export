@@ -1,10 +1,13 @@
 Octokit IssueExport
 ===================
 
-[![Gem Version](https://badge.fury.io/rb/octokit_issue_export.png)][gem]
-[gem]: https://rubygems.org/gems/octokit_issue_export
+[![Gem Version][gem_badge]][gem]
+[![Build Status][travis_badge]][travis]
+[![Dependency Status][gemnasium_badge]][gemnasium]
+[![Code Climate][codeclimate_badge]][codeclimate]
+[![Coverage Status][coveralls_badge]][coveralls]
 
-Export issues from projects on GitHub
+Octokit IssueExport is [Octokit][octokit] extension. Export issues from projects on GitHub.
 
 Installation
 ------------
@@ -63,10 +66,23 @@ Contributing
 Author
 ------
 
-- [@linyows](https://github.com/linyows)
+- [@linyows][linyows]
 
 
 License
 -------
 
 MIT
+
+[gem]: https://rubygems.org/gems/octokit_issue_export
+[gem_badge]: https://badge.fury.io/rb/octokit_issue_export.png
+[travis]: http://travis-ci.org/linyows/octokit_issue_export
+[travis_badge]: https://secure.travis-ci.org/linyows/octokit_issue_export.png?branch=master
+[gemnasium]: https://gemnasium.com/linyows/octokit_issue_export
+[gemnasium_badge]: https://gemnasium.com/linyows/octokit_issue_export.png?travis
+[codeclimate]: https://codeclimate.com/github/linyows/octokit_issue_export
+[codeclimate_badge]: https://codeclimate.com/github/linyows/octokit_issue_export.png
+[coveralls]: https://coveralls.io/r/linyows/octokit_issue_export
+[coveralls_badge]: https://coveralls.io/repos/linyows/octokit_issue_export/badge.png?branch=master
+[octokit]: https://github.com/octokit/octokit.rb
+[linyows]: https://github.com/linyows
