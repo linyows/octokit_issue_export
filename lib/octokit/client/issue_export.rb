@@ -1,30 +1,30 @@
 module Octokit
   class Client
     module IssueExport
-      def export_issues(username = nil)
+      def export_issues(repo)
+        puts "[#{repo}]"
+        if repo(repo).has_issues?
+          self._dir_for_export = File.join(%w(.) + repo.split('/'))
+          _export_issues(repo)
+        else
+          puts "- project without issues"
+        end
+        Time.now
+      end
+
+      def export_user_issues(username = nil)
         username = login if username.nil?
-        repos(username).each { |repo| export_issues_by_repo(repo) }
+        repos(username).each { |resource| export_issues(resource.full_name) }
         Time.now
       end
 
       def export_organization_issues(organization)
-        org_repos(organization).each { |repo| export_issues_by_repo(repo) }
+        org_repos(organization).each { |resource| export_issues(resource.full_name) }
         Time.now
       end
       alias :export_org_issues :export_organization_issues
 
-      def export_issues_by_repository(repo)
-        puts "[#{repo.full_name}]"
-        if repo(repo.full_name).has_issues?
-          self._dir_for_export = File.join(%w(.) + repo.full_name.split('/'))
-          _export_issues_by_repository(repo.full_name)
-        else
-          puts "- project without issues"
-        end
-      end
-      alias :export_issues_by_repo :export_issues_by_repository
-
-      def _export_issues_by_repository(repo)
+      def _export_issues(repo)
         %i(open closed).each { |state|
           page = 1
           loop do
@@ -40,15 +40,6 @@ module Octokit
             page += 1
           end
         }
-      end
-
-      def _output_for_export(number, state, comments, title)
-        puts <<-OUTPUT.gsub(/\s{10}/, '').gsub(/\n/, '')
-          - #{"##{number}".rjust(4)},
-          state: #{state.to_s.rjust(6)},
-          comments: #{comments.to_s.rjust(3)},
-          title: "#{title.to_s}"
-        OUTPUT
       end
 
       def _export_issue(repo, issue)
@@ -69,6 +60,15 @@ module Octokit
         data.merge!(comment_data: comment_data)
         file = File.join(_dir_for_export, "#{issue.number}.json")
         _export_json(data, file)
+      end
+
+      def _output_for_export(number, state, comments, title)
+        puts <<-OUTPUT.gsub(/\s{10}/, '').gsub(/\n/, '')
+          - #{"##{number}".rjust(4)},
+          state: #{state.to_s.rjust(6)},
+          comments: #{comments.to_s.rjust(3)},
+          title: "#{title.to_s}"
+        OUTPUT
       end
 
       def _dump_resources(resources)
